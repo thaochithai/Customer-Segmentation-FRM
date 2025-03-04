@@ -1,0 +1,24 @@
+import pandas as pd
+import numpy as np
+#import the whole file
+df = pd.ExcelFile("/content/ecommerce retail.xlsx")
+#extract only sheet transaction
+data = df.parse('ecommerce retail')
+print(data.head())
+#check data
+print(data.info())
+print(data.describe())
+print(data.isnull().sum())
+
+#duplicate
+print(data.duplicated().sum())
+#concert float into int
+data['UnitPrice'] = data['UnitPrice'].astype(int)
+
+#negative value check logic
+print(data[data['Quantity']<0].value_counts())
+print(data[data['InvoiceNo'].str.startswith('C', na=False)].value_counts())
+print(data[data['UnitPrice']<0])
+
+#duplicate
+print(data.duplicated().sum())
